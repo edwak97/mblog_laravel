@@ -1,0 +1,20 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+    container_name: app_nginx
+  app:
+    build:
+      context: .
+      dockerfile: Docker/app/Dockerfile
+    volumes:
+      - ./:/var/www
+
+    container_name: app_app
+
