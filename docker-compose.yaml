@@ -9,6 +9,20 @@ services:
     depends_on:
       - app
     container_name: app_nginx
+  
+  db:
+    image: mariadb:12.2.2
+    restart: always
+    volumes:
+      - ./db_data/:/var/lib/mysql/
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - ${DB_PORT}:3306
+    container_name: app_database
+
   app:
     build:
       context: .
@@ -17,4 +31,6 @@ services:
       - ./:/var/www
 
     container_name: app_app
+    depends_on:
+      - db
 
