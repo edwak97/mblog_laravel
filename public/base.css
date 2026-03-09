@@ -48,6 +48,7 @@ body {
 
     padding: 3px;
     border-radius: 5px;
+    font-size: 25px;
 }
 
 .menu-item > a {
@@ -68,8 +69,6 @@ body {
 .rightside {
     grid-column: 2/3;
     display: grid;
-
-    
 }
 
 .notelist {
@@ -79,6 +78,7 @@ body {
 .notecontent {
     padding: 5px 40px;
     margin: 0;
+    font-size: 30px;
 }
 
 .pagination {
@@ -100,7 +100,7 @@ body {
 .note {
     border-radius: 10px;
     background-color: #d6e9f4;
-
+    font-size: 30px;
     margin: 13px 0;
 }
 
@@ -116,6 +116,7 @@ body {
 
 .header h1 {
     margin: 10px 0 0;
+    font-size: 40px;
 }
 
 .yep {
