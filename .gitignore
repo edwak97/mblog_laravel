@@ -20,6 +20,7 @@
 /storage/pail
 /vendor
 db_data/*
+certs/
 .editorconfig
 Homestead.json
 Homestead.yaml

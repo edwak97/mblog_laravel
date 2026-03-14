@@ -6,10 +6,12 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
+      - certbot
       - app
     container_name: app_nginx
-  
+
   db:
     image: mariadb:12.2.2
     restart: always
@@ -23,6 +25,13 @@ services:
       - ${DB_PORT}:3306
     container_name: app_database
 
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certs:/etc/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"  
+    container_name: app_certbot
+  
   app:
     build:
       context: .
@@ -34,3 +43,6 @@ services:
     depends_on:
       - db
 
+networks:
+  default:
+    driver: bridge
