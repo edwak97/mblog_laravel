@@ -23,7 +23,7 @@
 						<h1>{{$note->title}}</h1>
 					</div>
 					<div class="notecontent">
-						{{$note->body}}
+					<x-markdown>{!!$note->body!!}</x-markdown>
 					</div>
 				</div>
 				@endforeach
