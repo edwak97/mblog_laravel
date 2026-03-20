@@ -10,13 +10,14 @@ class NoteControllerApi extends Controller
 {
 	public function index(Request $request)
 	{
-		$page = $request->input('p', 2);
+		$data = $request->validate(
+			['p' => 'integer|min:1']
+		);
 
-		//$data['p'] ??= 1;
 		$notes = Note::where('hidden', false)
 			->select(['title', 'body', 'created_at'])
 			->orderBy('created_at', 'DESC')
-			->paginate(3, ['*'], 'p', $page)
+			->paginate(5, ['*'], 'p', $data['p'] ?? 1)
 		;
 		
 		return response()->json(
@@ -27,7 +28,6 @@ class NoteControllerApi extends Controller
 				'last_page' => $notes->lastPage(),
 				'per_page' => $notes->perPage(),
 				'total' => $notes->total(),
-				'query' => $request->query()
 				],
 			],
 			Response::HTTP_OK
