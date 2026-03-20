@@ -8,13 +8,17 @@ use Illuminate\Http\Response;
 
 class NoteControllerApi extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
+		$page = $request->input('p', 2);
+
+		//$data['p'] ??= 1;
 		$notes = Note::where('hidden', false)
 			->select(['title', 'body', 'created_at'])
-			->paginate(10)
+			->orderBy('created_at', 'DESC')
+			->paginate(3, ['*'], 'p', $page)
 		;
-
+		
 		return response()->json(
 			[
 			'data' => $notes->items(),
@@ -23,6 +27,7 @@ class NoteControllerApi extends Controller
 				'last_page' => $notes->lastPage(),
 				'per_page' => $notes->perPage(),
 				'total' => $notes->total(),
+				'query' => $request->query()
 				],
 			],
 			Response::HTTP_OK
