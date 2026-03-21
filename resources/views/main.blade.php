@@ -17,17 +17,27 @@
 		</div>
 		<div class="rightside">
 			<div class="notelist">
-				@foreach($notes as $note)
+				@foreach($notes->items() as $note)
 				<div class="note">
 					<div class="header">
 						<h1>{{$note->title}}</h1>
 					</div>
 					<div class="notecontent">
-					<x-markdown>{!!$note->body!!}</x-markdown>
+					{!!$note->body!!}
 					</div>
 				</div>
 				@endforeach
-			</div> 
+			</div>
+			<div class="pagination">
+				@if ($notes->onFirstPage())	
+					<a class="nav-link" href="{{$notes->nextPageUrl()}}">Следующая страница</a>
+				@elseif ($notes->onLastPage())
+					<a class="nav-link" href="{{$notes->previousPageUrl()}}">Предыдущая страница</a>
+				@else
+					<a class="nav-link" href="{{$notes->previousPageUrl()}}">Предыдущая страница</a>
+					<a class="nav-link" href="{{$notes->nextPageUrl()}}">Следующая страница</a>
+				@endif
+			</div>
 		</div>
 	</div>
 </body>

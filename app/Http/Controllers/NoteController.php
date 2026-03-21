@@ -9,24 +9,26 @@ use Spatie\LaravelMarkdown\MarkdownRenderer;
 
 class NoteController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$items = Note::where('hidden', false)
-			->select(['title', 'body', 'created_at'])
-			->paginate(10)
-			->items()
-		;
-		#?
-		$renderer = app(MarkdownRenderer::class);
-
-		$items = array_map(
-			static function($item) use ($renderer) {
-				$item->body = $renderer->toHtml($item->body);
-				return $item;
-			},
-			$items
+		$data = $request->validate(
+			['p' => 'integer|min:1']
 		);
-		return view('main', ['notes'=>$items]);
+
+		$mrkdn_renderer = app(MarkdownRenderer::class);
+
+		$notes = Note::where('hidden', false)
+			->select(['title', 'body', 'created_at'])
+			->orderBy('created_at', 'DESC')
+			->paginate(5, ['*'], 'p', $data['p'] ?? 1)
+			->through(static function($item) use ($mrkdn_renderer) {
+				$item->body = $mrkdn_renderer->toHtml($item->body);
+				return $item;
+			})
+		;	
+
+		//$meta = [ 'prev' => $notes
+		return view('main', ['notes' => $notes]);
 	}
 }
 

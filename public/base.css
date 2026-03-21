@@ -78,23 +78,23 @@ body {
 .notecontent {
     padding: 5px 40px;
     margin: 0;
-    font-size: 30px;
 }
 
 .pagination {
-    display: grid;
-    justify-content: center;
+    display: flex;
+    justify-content: space-between;
     justify-items: center;
-
-    margin-bottom: 15px;
-
-    grid-template-columns: 60px 60px;
+    gap: 1rem;
+    white-space: nowrap;
 }
 
-.notecontent > p {
-    text-indent: 2ch;
-    line-height: 23px;
-    margin: 10px 0 10px;
+.nav-link {
+    display: inline-block;
+    max-width: 48%;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 25px;
+    background-color: #b0c6d2; 
 }
 
 .note {
