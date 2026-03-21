@@ -63,6 +63,11 @@ class NoteControllerApi extends Controller
 
 		return response()->json(note::where('id', $id)->first());
 	}
+	
+	public function destroy($id)
+	{
+		return response()->json(Note::where('id', $id)->delete() === 1);
+	}
 
 	public function store(Request $request)
 	{	
