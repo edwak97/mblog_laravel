@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 
 class NoteControllerApi extends Controller
 {
+	private static array $items_to_show = ['id', 'title', 'body', 'created_at'];
+
 	public function index(Request $request)
 	{
 		$data = $request->validate(
@@ -15,7 +17,7 @@ class NoteControllerApi extends Controller
 		);
 
 		$notes = Note::where('hidden', false)
-			->select(['title', 'body', 'created_at'])
+			->select($this::$items_to_show)
 			->orderBy('created_at', 'DESC')
 			->paginate(5, ['*'], 'p', $data['p'] ?? 1)
 		;
@@ -38,7 +40,7 @@ class NoteControllerApi extends Controller
 	{
 		$note = Note::where('id', $id)
 			->where('hidden', false)
-			->select(['title', 'body', 'created_at'])
+			->select($this::$items_to_show)
 			->first()
 		;
 
