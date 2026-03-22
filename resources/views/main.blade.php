@@ -29,13 +29,15 @@
 				@endforeach
 			</div>
 			<div class="pagination">
-				@if ($notes->onFirstPage())	
-					<a class="nav-link" href="{{$notes->nextPageUrl()}}">Следующая страница</a>
-				@elseif ($notes->onLastPage())
-					<a class="nav-link" href="{{$notes->previousPageUrl()}}">Предыдущая страница</a>
-				@else
-					<a class="nav-link" href="{{$notes->previousPageUrl()}}">Предыдущая страница</a>
-					<a class="nav-link" href="{{$notes->nextPageUrl()}}">Следующая страница</a>
+				@if ($notes->hasPages())
+					@if ($notes->onFirstPage())	
+						<a class="nav-link" href="{{$notes->nextPageUrl()}}">Следующая страница</a>
+					@elseif ($notes->onLastPage())
+						<a class="nav-link" href="{{$notes->previousPageUrl()}}">Предыдущая страница</a>
+					@else
+						<a class="nav-link" href="{{$notes->previousPageUrl()}}">Предыдущая страница</a>
+						<a class="nav-link" href="{{$notes->nextPageUrl()}}">Следующая страница</a>
+					@endif
 				@endif
 			</div>
 		</div>
