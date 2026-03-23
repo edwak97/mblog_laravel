@@ -6,12 +6,18 @@ RUN apt-get update && apt-get install -y \
       libpng-dev \
       libzip-dev \
       zip unzip \
-      git && \
+      git \
+      build-essential \
+      libmemcached-dev \
+      zlib1g-dev \
+      libssl-dev && \
+      pecl install memcached && \
       docker-php-ext-install pdo_mysql && \
       docker-php-ext-install bcmath && \
       docker-php-ext-install gd && \
-      docker-php-ext-install zip && \
-      apt-get clean && \
+      docker-php-ext-install zip
+
+RUN   apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY ./Docker/app/php.ini /usr/local/etc/php/conf.d/php.ini

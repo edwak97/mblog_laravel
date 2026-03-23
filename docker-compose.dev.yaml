@@ -32,7 +32,13 @@ services:
       - ./public:/etc/webroot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"  
     container_name: app_certbot
-  
+
+  memcached:
+    image: memcached:1.6.41
+    command:
+      - --memory-limit=128
+    container_name: app_cache
+
   app:
     build:
       context: .
