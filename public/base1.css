@@ -119,6 +119,9 @@ body {
     font-size: 40px;
 }
 
+.notecontent p {
+    font-size: 30px;
+}
 .yep {
     color: rgb(109, 109, 212);
     transition: 0.9s;
