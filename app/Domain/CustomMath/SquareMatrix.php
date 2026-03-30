@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Domain\CustomMath;
 
@@ -8,7 +9,7 @@ readonly class SquareMatrix extends Matrix {
 	{
 		$result = parent::fromArray($rows);
 
-		return self::fromMatrix(parent::fromArray($rows);
+		return self::fromMatrix(parent::fromArray($rows));
 	}
 
 	public static function fromMatrix(Matrix $matrix): static
@@ -18,7 +19,7 @@ readonly class SquareMatrix extends Matrix {
 			throw new \InvalidArgumentException('The width of the matrix must be equal to the height');
 		}
 
-		return $matrix;
+		return new self($matrix->data);
 	}
 	
 }

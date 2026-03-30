@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 use App\Domain\CustomMath\Matrix;
 use App\Domain\CustomMath\MatrixRow;
+use App\Domain\CustomMath\SquareMatrix;
 
 test('creates Matrix from valid MatrixRow array', function () {
     $row1 = MatrixRow::fromArray([1, 2, 3]);
@@ -79,4 +81,36 @@ test('constructor private, only fromArray factory works', function () {
     $matrix = Matrix::fromArray([$row]);
     
     expect($matrix)->toBeInstanceOf(Matrix::class);
+});
+
+test('square matrix validation test throws exception', function () {
+    $rows = [
+        MatrixRow::fromArray([1, 2, 3]),
+        MatrixRow::fromArray([4, 5, 6]),
+    ];
+    
+    expect(fn() => SquareMatrix::fromArray($rows))
+        ->toThrow(InvalidArgumentException::class, 'The width of the matrix must be equal to the height');
+});
+
+test('square matrix validation test passes', function () {
+    $rows = [
+        MatrixRow::fromArray([1, 2, 3]),
+        MatrixRow::fromArray([4, 5, 6]),
+        MatrixRow::fromArray([7, 8, 9]),
+    ];
+    
+    expect(SquareMatrix::fromArray($rows))->toBeInstanceOf(SquareMatrix::class);
+});
+
+test('square matrix fromMatrix method test', function() {
+    $rows = [
+        MatrixRow::fromArray([1, 2, 3]),
+        MatrixRow::fromArray([4, 5, 6]),
+        MatrixRow::fromArray([7, 8, 9]),
+    ];
+    $matrix = Matrix::fromArray($rows);
+    
+    expect(SquareMatrix::fromMatrix($matrix))->toBeInstanceOf(SquareMatrix::class);
+    
 });

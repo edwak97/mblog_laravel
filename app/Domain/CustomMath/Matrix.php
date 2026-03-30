@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Domain\CustomMath;
 
@@ -7,7 +8,7 @@ readonly class Matrix {
 	public int $w;
 	public int $h;
 
-	private function __construct(public array $data)
+	protected function __construct(public array $data)
 	{
 		$this->w = count($data[0]->data);
 		$this->h = count($data);
