@@ -1,20 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-	<meta charset="UTF-8">
-	<title>edwak97</title>
-	<link rel="stylesheet" href="{{asset('base1.css')}}">
-	<link rel="icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
-</head>
-
+@include('parts.header')
 <body>
 	<div class="pagecontent">
-		<div class="leftside">
-			<div class="menu">
-				<div class="menu-item"><a href="https://t.me/edwak97" target="_blank">Telegram</a></div>
-				<div class="menu-item"><a href="https://github.com/edwak97">Github</a></div>
-			</div>
-		</div>
+		@include('parts.menu')
 		<div class="rightside">
 			<div class="notelist">
 				@foreach($notes->items() as $note)
